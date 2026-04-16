@@ -1,0 +1,4 @@
+zapytanie1="SELECT marka, model, cena FROM pojazdy WHERE marka = 'BM' ORDER BY cena ASC LIMIT 15"
+zapytanie2="SELECT AVG(cena) as 'Średnia cena', MAX(cena) as 'Maksymalna cena' FROM pojazdy WHERE model='meta' "
+zapytanie3="SELECT p.marka, p.model, p.cena, k.nazwa, k.doplata FROM pojazdy p JOIN kolory k on pojazdy.kolor = kolory.id WHERE model='alfa' "
+zapytanie3="SELECT marka, model, cena FROM pojazdy ORDER BY RAND()"
