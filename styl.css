@@ -1,6 +1,8 @@
 * {
     text-align: center;
     font-family: Helvetica;
+    margin: 0;
+    padding: 0;
 }
 
 header,
@@ -45,4 +47,12 @@ table {
 
 #left tr:hover {
     background-color: forestgreen;
+}
+
+main {
+    border: 5px solid red;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;         
+    flex-wrap: wrap; 
 }
