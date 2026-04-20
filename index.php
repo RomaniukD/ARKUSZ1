@@ -10,12 +10,16 @@
 
 <body>
     <?php
-    $conn = mysqli_connect('localhost', 'root', '', 'samochody')
-    $query1 = "SELECT marka, model, cena FROM pojazdy WHERE marka = 'BM' ORDER BY cena ASC LIMIT 15"
-    $query2 = "SELECT AVG(cena) as 'Średnia cena', MAX(cena) as 'Maksymalna cena' FROM pojazdy WHERE model='meta' "
-    $query3 = "SELECT p.marka, p.model, p.cena, k.nazwa, k.doplata FROM pojazdy p JOIN kolory k on pojazdy.kolor = kolory.id WHERE model='alfa' "
-    $query4 = "SELECT marka, model, cena FROM pojazdy ORDER BY RAND()"
-    
+    $conn = mysqli_connect('localhost', 'root', '', 'romaniuk_samochody');
+    $query1 = "SELECT marka, model, cena FROM pojazdy WHERE marka = 'BM' ORDER BY cena ASC LIMIT 15";
+    $query2 = "SELECT AVG(cena) as 'Średnia cena', MAX(cena) as 'Maksymalna cena' FROM pojazdy WHERE model='meta' ";
+    $query3 = "SELECT p.marka, p.model, p.cena, k.nazwa, k.doplata 
+           FROM pojazdy p 
+           JOIN kolory k ON p.kolor = k.id 
+           WHERE p.model = 'alfa'";
+
+    $query4 = "SELECT marka, model, cena FROM pojazdy ORDER BY RAND() LIMIT 2;";
+
     ?>
     <header>
         <h1>Serwis konfiguracji samochodów</h1>
@@ -25,21 +29,22 @@
         <h2>Konfigurato</h2>
         <h2>Kontakt</h2>
     </nav>
-    <main>
+    <main style=" display: flex;
+    flex-direction: row;">
         <section id="left">
             <table>
                 <?php
-                $wynik = $connect -> query($query3);
-               while ($wiersz = mysqli_fetch_assoc($wynik)) {
-            echo "<tr>";
-            echo "<td>{$wiersz[0]}</td>";
-            echo "<td>{$wiersz[1]}</td>";
-            echo "<td>{$wiersz[2]}</td>";
-            echo "<td>{$wiersz[2] + $wiersz[4]}</td>";
-            echo "</tr>";
-        }
+                $wynik = $conn->query($query3);
+                while ($wiersz = mysqli_fetch_assoc($wynik)) {
+                    echo "<tr>";
+                    echo "<td>{$wiersz['marka']}</td>";
+                    echo "<td>{$wiersz['model']}</td>";
+                    echo "<td>{$wiersz['nazwa']}</td>";
+                    echo "<td>" . ($wiersz['cena'] + $wiersz['doplata']) . "</td>";
+                    echo "</tr>";
+                }
 
-                    ?>
+                ?>
             </table>
         </section>
 
@@ -51,34 +56,42 @@
                     <th>Cena</th>
                 </tr>
                 <tr>
-                    <img src="a1.jpg" alt="Konfiguracja 1">
+                    <td colspan="3"><img src="a1.jpg" alt="Konfiguracja 1"></td>
                 </tr>
+
                 <?php
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                   
-                    <tr>
-                      <img src="a2.jpg" alt="Konfiguracja 2">
-                    </tr>
-                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                 ?>
+                $query4 = "SELECT marka, model, cena FROM pojazdy ORDER BY RAND() LIMIT 2;";
+
+                $wynik = $conn->query($query4);
+                $auto1 = mysqli_fetch_assoc($wynik);
+                if ($auto1) {
+                    echo "<tr>";
+                    echo "<td>Marka</td><td>{$auto1['marka']}</td>";
+                    echo "<td rowspan='2'>{$auto1['cena']}</td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                    echo "<td>Model</td><td>{$auto1['model']}</td>"; // Poprawione z marka na model
+                    echo "</tr>";
+                }
+                ?>
+
+                <tr>
+                    <td colspan="3"><img src="a2.jpg" alt="Konfiguracja 2"></td>
+                </tr>
+
+                <?php
+                $auto2 = mysqli_fetch_assoc($wynik);
+                if ($auto2) {
+                    echo "<tr>";
+                    echo "<td>Marka</td><td>{$auto2['marka']}</td>";
+                    echo "<td rowspan='2'>{$auto2['cena']}</td>";
+                    echo "</tr>";
+                    echo "<tr>";
+                    echo "<td>Model</td><td>{$auto2['model']}</td>";
+                    echo "</tr>";
+                }
+                ?>
+
             </table>
         </section>
 
