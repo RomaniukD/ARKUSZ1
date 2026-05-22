@@ -10,7 +10,7 @@
 
 <body>
     <?php
-    $conn = mysqli_connect('localhost', 'root', '', 'romaniuk_samochody');
+    $conn = mysqli_connect('localhost', 'root', '', 'samochody');
     $query1 = "SELECT marka, model, cena FROM pojazdy WHERE marka = 'BM' ORDER BY cena ASC LIMIT 15";
     $query2 = "SELECT AVG(cena) as 'Średnia cena', MAX(cena) as 'Maksymalna cena' FROM pojazdy WHERE model='meta' ";
     $query3 = "SELECT p.marka, p.model, p.cena, k.nazwa, k.doplata 
@@ -26,11 +26,10 @@
     </header>
     <nav>
         <h2>Samochody</h2>
-        <h2>Konfigurato</h2>
+        <h2>Konfigurator</h2>
         <h2>Kontakt</h2>
     </nav>
-    <main style=" display: flex;
-    flex-direction: row;">
+    <main>
         <section id="left">
             <table>
                 <?php
